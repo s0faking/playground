@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cat tmp_video/video/*.ts > all.ts
+cat tmp_video/audio/*.ts > all_audio.ts
+mkvmerge -o out.mkv all.ts
+mkvmerge -o audio.mkv all_audio.ts
+mkvextract tracks audio.mkv 0:audio.aac
+ffmpeg -i out.mkv -i audio.aac -acodec copy -vcodec copy final.mkv
